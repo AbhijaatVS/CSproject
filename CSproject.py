@@ -87,6 +87,11 @@ try:
                     value=(a,b,mon)
                     cur2.reset()
                     cur2.execute(new,value)
+                    cur2.reset()
+                    sql="Insert into statements values(%s,%s,%s,%s,%s)"
+                    mon=str(mon)
+                    values=(a,"Ruppees "+mon+" was added", "+"+mon, mon, now)
+                    cur2.execute(sql,values)
                     db.commit()
                     print("New account created")
                     break
