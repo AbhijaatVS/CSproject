@@ -52,7 +52,7 @@ try:
                     break
                 elif ch==4:
                     ask=int(input("How much do you want to withdraw?"))
-                    if ask<x[2]:
+                    if ask<=x[2]:
                         amt=x[2]-ask
                         add="Update Details set Balance=%s where username=%s"
                         cur2.reset()
