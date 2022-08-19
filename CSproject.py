@@ -1,11 +1,12 @@
 import mysql.connector
 from getpass import getpass
 from datetime import datetime
+from tabulate import tabulate
 db=mysql.connector.connect(host="localhost", user="root", password="kanha", database="Banking")
 cur=db.cursor()
 cur2=db.cursor()
 now=datetime.now()
-s = 0
+table=[]
 print("1) Login")
 print("2) Create a new bank account")
 print("3) Delete an existing account")
@@ -32,10 +33,8 @@ try:
                     cur2.reset()
                     cur2.execute(sql,(a,))
                     for i in cur2:
-                        if s==0:
-                            print("USERNAME--------Statements--------MoneyDelta--Balance----Date and time")
-                            s=1
-                        print(i[0],"|", i[1],"|", i[2],"|",i[3],"|", i[4].strftime("%d/%m/%Y %H:%M:%S"))
+                        table.append(i)
+                    print(tabulate(table, headers=["Username", "Statements","Money added/withdrawn","Balance","Date and Time"]))
                     break
                 elif ch==3:
                     ask=int(input("How much do you want to add?"))
