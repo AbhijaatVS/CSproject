@@ -1,5 +1,5 @@
 import mysql.connector
-from getpass import getpass
+from maskpass import askpass
 from datetime import datetime
 from tabulate import tabulate
 db=mysql.connector.connect(host="localhost", user="root", password="kanha", database="Banking")
@@ -14,7 +14,7 @@ try:
     ch=int(input("What do you want to do?"))
     if ch==1:
         a=input("Enter Username")
-        b=getpass("Enter Password")
+        b=askpass(prompt="Enter Password", mask="*")
         sql="select * from Details"
         cur.execute(sql)
         for x in cur:
@@ -72,8 +72,8 @@ try:
             print("Wrong Username or Password")
     elif ch==2:
         a=input("Enter New Username")
-        b=getpass("Enter New Password")
-        c=getpass("Confirm New Password")
+        b=askpass(prompt="Enter Password", mask="*")
+        c=askpass(prompt="Re-Enter Password", mask="*")
         sql="select * from Details"
         cur.execute(sql)
         for x in cur:
@@ -100,13 +100,16 @@ try:
                     break
     elif ch==3:
         a=input("Enter Username")
-        b=getpass("Enter Password")
+        b=askpass(prompt="Enter Password", mask="*")
         sql="select * from Details"
         cur.execute(sql)
         for x in cur:
             if x[0]==a and x[1]==b:
                 sql="DELETE FROM Details WHERE username=%s"
                 cur2.reset()
+                cur2.execute(sql,(a,))
+                cur2.reset()
+                sql="DELETE FROM Statements WHERE username=%s"
                 cur2.execute(sql,(a,))
                 db.commit()
                 print("Account Deleted")
