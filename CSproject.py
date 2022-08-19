@@ -34,7 +34,7 @@ try:
                     cur2.execute(sql,(a,))
                     for i in cur2:
                         table.append(i)
-                    print(tabulate(table, headers=["Username", "Statements","Money added/withdrawn","Balance","Date and Time"]))
+                    print(tabulate(table, headers=["Username", "Statements","Money added/withdrawn","Balance","Date and Time"], tablefmt='fancy_grid'))
                     break
                 elif ch==3:
                     ask=int(input("How much do you want to add?"))
