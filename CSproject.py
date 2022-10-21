@@ -10,7 +10,7 @@ now=datetime.datetime.now()
 table=[]
 fd=[]
 var = 0
-print("=======WELCOME TO NIG BANK=======")
+print("=======WELCOME TO HYRULE BANK=======")
 print("1➔ Login")
 print("2➔ Create a new bank account")
 print("3➔ Delete an existing account")
@@ -25,7 +25,7 @@ try:
         for x in cur:
             if x[0]==a and x[1]==b:
                 time.sleep(1)
-                print("===========LOGIN SUCCESS===========")
+                print("===========LOGIN SUCCESSFUL===========")
                 print("1➔ Check Balance")
                 print("2➔ Check Transaction History")
                 print("3➔ Add money")
@@ -35,9 +35,11 @@ try:
                 ch=int(input("what do you want to do?  "))
                 time.sleep(1)
                 if ch==1:
+                    print("===========BALANCE===========")
                     print("Balance is", x[2])
                     break
                 elif ch==2:
+                    print("===========TRANSACTION HISTORY===========")
                     sql="select details.username, statements, moneydelta, statements.Balance, date_of_transaction from details,statements where details.username=statements.username and details.username=%s"
                     cur2.reset()
                     cur2.execute(sql,(a,))
@@ -46,7 +48,8 @@ try:
                     print(tabulate(table, headers=["Username", "Statements","Money added/withdrawn","Balance","Date and Time"], tablefmt='pretty'))
                     break
                 elif ch==3:
-                    ask=float(input("How much do you want to add?  "))
+                    print("===========MONEY DEPOSIT===========")
+                    ask=int(input("How much do you want to add?  "))
                     time.sleep(1)
                     amt=x[2]+ask
                     add="Update Details set Balance=%s where username=%s"
@@ -62,6 +65,7 @@ try:
                     print("Money added")
                     break
                 elif ch==4:
+                    print("===========MONEY WITHDRAWAL===========")
                     ask=int(input("How much do you want to withdraw?  "))
                     time.sleep(1)
                     if ask<=x[2]:
@@ -140,6 +144,8 @@ try:
                                     time.sleep(1)
                                     print("Insufficient Balance")
                                     break
+                                break
+                            break
                     elif cho == 2:
                         #Checking if the User even has a Fixed Deposit or not
                         sql = "select * from fixed_deposits"
@@ -176,6 +182,7 @@ try:
                         else:
                             time.sleep(1)
                             print("You don't have a Fixed Deposit")
+                        break
                     elif cho == 3:
                         sql = "select * from fixed_deposits"
                         cur2.reset()
@@ -242,10 +249,13 @@ try:
                             print("You Don't Have a Fixed Deposit")
 
 
+
                     else:
                         time.sleep(1)
                         print("Enter a Valid Option")
                         break
+                    break
+                break
         else:
             time.sleep(1)
             print("Wrong Username or Password")
