@@ -1,2 +1,3 @@
-from getpass import getpass
-b=getpass("enter password")
+l=[]
+for i in l:
+    print(i)
